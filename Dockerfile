@@ -1,4 +1,4 @@
-FROM golang:1.10-alpine AS build
+FROM arm64v8/golang:1.10-alpine AS build
 
 RUN apk add --update --no-cache ca-certificates gcc git musl-dev && \
     mkdir -p /go/src/github.com/StanfordSNR /build && \
@@ -7,10 +7,10 @@ RUN apk add --update --no-cache ca-certificates gcc git musl-dev && \
     cd /go/src/github.com/StanfordSNR/guardian-agent && \
     git submodule init && \
     git submodule update && \
-    go get -v ./...
+    CGO_ENABLED=0 go get -v ./...
 
 COPY ./copy-to-build.sh .
 
-VOLUME /output
+VOLUME /build
 
 ENTRYPOINT ["./copy-to-build.sh"] 
