@@ -9,7 +9,7 @@ then
 fi
 
 docker build . -t $docker_image_name
-docker run -v "$(pwd)/build:/build" -it $docker_image_name sh
+docker run -v "$(pwd)/build:/build" $docker_image_name
 
-cp -v build/bin/* "$bin_dir"
-cp -v build/scripts/* "$bin_dir"
+sudo cp -v build/bin/* "$bin_dir"
+sudo cp -v build/scripts/* "$bin_dir"
